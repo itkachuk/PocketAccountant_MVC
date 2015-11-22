@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+    <New id="DB_ID1" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/__default</Arg>
+        <Arg>
+            <New class="org.sqlite.SQLiteConnectionPoolDataSource">
+                <Set name="driverClassName">org.sqlite.JDBC</Set>
+                <Set name="URL">jdbc:sqlite:F:/IdeaProjects/PocketAccountant_MVC/pa.db</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>

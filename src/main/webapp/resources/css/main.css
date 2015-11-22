@@ -1,0 +1,46 @@
+/* Common styles */
+body h2 {
+    color: #777;
+}
+
+.listHeader {
+    display: flex;
+    align-content: flex-start;
+}
+
+.reportsList {
+    display: flex;
+    flex-direction: column;
+}
+
+.stacktrace {
+    padding-left: 40px;
+    color: #777;
+}
+
+
+/* index.jsp */
+#recordsList .loggedUserHeader {
+    display: flex;
+    justify-content: flex-end;
+    color: #bbbbbb;
+}
+
+#recordsList .booksListHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+#recordsList table .btn {
+    min-width: 80px;
+}
+
+#recordsList .booksListHeader .btn {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* addBook.jsp */
+#addNewBookForm {
+    width: 500px;
+}
