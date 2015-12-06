@@ -1,12 +1,19 @@
 /* Common styles */
-body h2 {
-    color: #777;
+/*body h2 {*/
+    /*color: #777;*/
+/*}*/
+
+.row { /* override row default margins in bootstrap.css */
+     margin-right: 0;
+     margin-left: 0;
 }
 
 .listHeader {
     display: flex;
     align-content: flex-start;
 }
+
+
 
 .reportsList {
     display: flex;
@@ -20,25 +27,68 @@ body h2 {
 
 
 /* index.jsp */
-#recordsList .loggedUserHeader {
-    display: flex;
-    justify-content: flex-end;
-    color: #bbbbbb;
+#recordsList {
+
 }
 
-#recordsList .booksListHeader {
+#recordsList ul {
+    padding-left: 10px;
+    list-style-type: none;
+}
+
+#recordItem {
+    border-bottom: solid #bbbbbb 1px;
+}
+
+#recordItem .firstRow {
+     display: flex;
+     align-content: flex-start;
+}
+
+#recordItem .secondRow {
     display: flex;
     justify-content: space-between;
 }
 
-#recordsList table .btn {
-    min-width: 80px;
+#recordItem .thirdRow {
+    display: flex;
+    align-content: flex-start;
 }
 
-#recordsList .booksListHeader .btn {
-    margin-top: 20px;
-    margin-bottom: 10px;
+.columnHeader {
+    color: #777;
 }
+
+.columnSubHeader {
+    color: #777;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.newRecordButton {
+    width: 60%;
+    margin: 20px 0;
+}
+
+/*#recordsList .loggedUserHeader {*/
+    /*display: flex;*/
+    /*justify-content: flex-end;*/
+    /*color: #bbbbbb;*/
+/*}*/
+
+/*#recordsList .booksListHeader {*/
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+/*}*/
+
+/*#recordsList table .btn {*/
+    /*min-width: 80px;*/
+/*}*/
+
+/*#recordsList .booksListHeader .btn {*/
+    /*margin-top: 20px;*/
+    /*margin-bottom: 10px;*/
+/*}*/
 
 /* addBook.jsp */
 #addNewBookForm {
