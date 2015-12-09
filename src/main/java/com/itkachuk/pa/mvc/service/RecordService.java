@@ -19,4 +19,12 @@ public class RecordService {
     public List<RecordEntity> getRecordsList() {
         return recordRepository.getRecordsList();
     }
+
+    public List<RecordEntity> getRecordsListByAccountId(int accountId) {
+        return recordRepository.getRecordsListByAccountId(accountId);
+    }
+
+    public void createNewRecord(RecordEntity recordEntity) {
+        recordRepository.createNewRecord(recordEntity);
+    }
 }

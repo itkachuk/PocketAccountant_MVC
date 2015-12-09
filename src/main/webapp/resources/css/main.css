@@ -3,6 +3,11 @@
     /*color: #777;*/
 /*}*/
 
+ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
 .row { /* override row default margins in bootstrap.css */
      margin-right: 0;
      margin-left: 0;
@@ -27,14 +32,10 @@
 
 
 /* index.jsp */
-#recordsList {
 
-}
-
-#recordsList ul {
-    padding-left: 10px;
-    list-style-type: none;
-}
+/*#recordsList ul {*/
+    /*padding-left: 10px;*/
+/*}*/
 
 #recordItem {
     border-bottom: solid #bbbbbb 1px;
@@ -54,6 +55,22 @@
     display: flex;
     align-content: flex-start;
 }
+
+
+#accountItem {
+    border-bottom: solid #bbbbbb 1px;
+}
+
+#accountItem .firstRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+#accountItem .secondRow {
+    display: flex;
+    align-content: flex-start;
+}
+
 
 .columnHeader {
     color: #777;

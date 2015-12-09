@@ -1,6 +1,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ваня
@@ -176,8 +177,10 @@
                         </button>
                     </div>
                 </div>
-                <div id="addNewRecordForm" align="center" class="container hidden">
-                    <form:form method="post" role="form" modelAttribute="recordForm" action="${empty recordId ? recordAddUrl : recordUpdateUrl}">
+                <div id="addNewRecordForm" align="center" style="display: none;">
+                    <spring:url value="/summary/record/add" var="recordAddUrl" />
+                    <spring:url value="/summary/record/update/" var="recordUpdateUrl" />
+                    <form:form method="post" role="form" modelAttribute="recordForm" action="${empty id ? recordAddUrl : recordUpdateUrl}">
                         <div class="form-group">
                             <label for="isExpense">Record type:</label>
                             <form:select path="isExpense" id="isExpense" class="form-control">
@@ -188,7 +191,7 @@
                         <div class="form-group">
                             <label for="account">Account:</label>
                             <form:select path="account" id="account" class="form-control">
-                                <form:options items="${accountList}" itemValue="accountId" itemLabel="accountName" />
+                                <form:options items="${accountsList}" itemValue="id" itemLabel="name" />
                             </form:select>
                         </div>
                         <div class="form-group">
@@ -202,12 +205,12 @@
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <form:select path="category" id="category" class="form-control">
-                                <form:options items="${categoryList}" itemValue="categoryId" itemLabel="categoryName" />
+                                <form:options items="${categoriesList}" itemValue="id" itemLabel="name" />
                             </form:select>
                         </div>
                         <div class="form-group">
-                            <label for="comment">Comment:</label>
-                            <form:input path="comment" type="text" id="comment" class="form-control" />
+                            <label for="description">Description:</label>
+                            <form:input path="description" type="text" id="description" class="form-control" />
                         </div>
                         <button class="btn btn-info"
                                 <%--onclick="location.href='${empty recordId ? recordAddUrl : recordUpdateUrl}'">--%>

@@ -21,7 +21,7 @@ public class RecordController {
     private RecordService recordService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public String getBooksList(Model model) {
+    public String getRecordsList(Model model) {
 
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        String username = auth.getName(); //get logged in username
