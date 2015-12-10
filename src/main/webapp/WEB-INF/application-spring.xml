@@ -38,7 +38,7 @@
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="url" value="jdbc:sqlite:F:/IdeaProjects/PocketAccountant_MVC/pa.db"/>
+        <property name="url" value="jdbc:sqlite:pa.db"/>
     </bean>
 
     <!--<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">-->
