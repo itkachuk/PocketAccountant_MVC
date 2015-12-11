@@ -17,6 +17,7 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Transactional
     public AccountEntity getDefaultAccount() {
         // TODO: will return default account, saved in app properties
         return accountRepository.getAccountById(1); // temp
@@ -25,5 +26,10 @@ public class AccountService {
     @Transactional
     public List<AccountEntity> getAccountsList() {
         return accountRepository.getAccountsList();
+    }
+
+    @Transactional
+    public AccountEntity getAccountById(int id) {
+        return accountRepository.getAccountById(id);
     }
 }

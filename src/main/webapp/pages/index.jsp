@@ -177,7 +177,7 @@
                         </button>
                     </div>
                 </div>
-                <div id="addNewRecordForm" align="center" style="display: none;">
+                <div id="addNewRecordForm" align="left" style="display: none;">
                     <spring:url value="/summary/record/add" var="recordAddUrl" />
                     <spring:url value="/summary/record/update/" var="recordUpdateUrl" />
                     <form:form method="post" role="form" modelAttribute="recordForm" action="${empty id ? recordAddUrl : recordUpdateUrl}">
@@ -205,6 +205,7 @@
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <form:select path="category" id="category" class="form-control">
+                                <form:option value="-1" label="" />
                                 <form:options items="${categoriesList}" itemValue="id" itemLabel="name" />
                             </form:select>
                         </div>
@@ -212,12 +213,14 @@
                             <label for="description">Description:</label>
                             <form:input path="description" type="text" id="description" class="form-control" />
                         </div>
-                        <button class="btn btn-info"
+                        <div align="right">
+                        <button class="btn btn-info" type="submit"
                                 <%--onclick="location.href='${empty recordId ? recordAddUrl : recordUpdateUrl}'">--%>
                                 onclick="saveRecordButtonClick()">
                             Save
                         </button>
-                        <button class="btn btn-primary" onclick="cancelButtonClick()"> Cancel </button>
+                        <button class="btn btn-primary" type="button" onclick="cancelButtonClick()"> Cancel </button>
+                        </div>
                     </form:form>
                 </div>
             </div>

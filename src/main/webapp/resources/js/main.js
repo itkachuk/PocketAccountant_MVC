@@ -3,13 +3,15 @@
  */
 
 function newRecordButtonClick(recordType) {
+    var addNewRecordForm = $("#addNewRecordForm");
+
     if (recordType == "income") {
-
+        addNewRecordForm.find("#isExpense").val('0');
     } else {
-
+        addNewRecordForm.find("#isExpense").val('1');
     }
     $("#newRecordButtonsPanel").hide();
-    $("#addNewRecordForm").show();
+    addNewRecordForm.show();
 }
 
 function saveRecordButtonClick() {

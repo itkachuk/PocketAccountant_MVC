@@ -17,32 +17,26 @@ public class AccountRepository {
     @PersistenceContext(name = "PAPersistenceUnit")
     private EntityManager entityManager;
 
-    @Transactional
     public List<AccountEntity> getAccountsList() {
         return entityManager.createQuery("from AccountEntity").getResultList();
     }
 
-    @Transactional
     public AccountEntity getAccountById(int id) {
         return entityManager.find(AccountEntity.class, id);
     }
 
-    @Transactional
     public AccountEntity getAccountByName(String name) {
         return (AccountEntity) entityManager.createQuery("from AccountEntity A where A.name = " + name).getSingleResult();
     }
 
-    @Transactional
     public void createNewAccount(AccountEntity accountEntity) {
         entityManager.persist(accountEntity);
     }
 
-    @Transactional
     public void updateAccount(AccountEntity accountEntity) {
         entityManager.merge(accountEntity);
     }
 
-    @Transactional
     public void deleteAccount(AccountEntity accountEntity) {
         entityManager.remove(accountEntity);
     }

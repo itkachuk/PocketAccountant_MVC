@@ -21,4 +21,9 @@ public class CategoryService {
     public List<CategoryEntity> getCategoriesList() {
         return categoryRepository.getCategoriesList();
     }
+
+    @Transactional
+    public CategoryEntity getCategoryById(int id) {
+        return categoryRepository.getCategoryById(id);
+    }
 }

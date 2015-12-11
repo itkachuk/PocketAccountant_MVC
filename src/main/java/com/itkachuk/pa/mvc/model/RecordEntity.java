@@ -110,6 +110,7 @@ public class RecordEntity {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public Integer getId() {
         return id;

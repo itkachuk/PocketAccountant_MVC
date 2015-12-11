@@ -87,6 +87,11 @@ ul {
     margin: 20px 0;
 }
 
+
+#addNewRecordForm button {
+    min-width: 80px;
+}
+
 /*#recordsList .loggedUserHeader {*/
     /*display: flex;*/
     /*justify-content: flex-end;*/

@@ -1,5 +1,8 @@
 package com.itkachuk.pa.mvc.controller;
 
+import com.itkachuk.pa.mvc.converter.AccountEditor;
+import com.itkachuk.pa.mvc.converter.CategoryEditor;
+import com.itkachuk.pa.mvc.converter.PABindingInitializer;
 import com.itkachuk.pa.mvc.model.AccountEntity;
 import com.itkachuk.pa.mvc.model.CategoryEntity;
 import com.itkachuk.pa.mvc.model.RecordEntity;
@@ -9,6 +12,8 @@ import com.itkachuk.pa.mvc.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +35,14 @@ public class SummaryPageController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private PABindingInitializer bindingInitializer;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        bindingInitializer.initBinder(binder, null);
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAllSummaryPageData(Model model) {

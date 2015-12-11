@@ -16,27 +16,22 @@ public class CategoryRepository {
     @PersistenceContext(name = "PAPersistenceUnit")
     private EntityManager entityManager;
 
-    @Transactional
     public List<CategoryEntity> getCategoriesList() {
         return entityManager.createQuery("from CategoryEntity").getResultList();
     }
 
-    @Transactional
     public CategoryEntity getCategoryById(int id) {
         return entityManager.find(CategoryEntity.class, id);
     }
 
-    @Transactional
     public void createNewCategory(CategoryEntity categoryEntity) {
         entityManager.persist(categoryEntity);
     }
 
-    @Transactional
     public void updateCategory(CategoryEntity categoryEntity) {
         entityManager.merge(categoryEntity);
     }
 
-    @Transactional
     public void deleteCategory(CategoryEntity categoryEntity) {
         entityManager.remove(categoryEntity);
     }
