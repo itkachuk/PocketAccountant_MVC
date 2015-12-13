@@ -56,8 +56,11 @@ public class SummaryPageController {
         List<CategoryEntity> categoriesList = categoryService.getCategoriesList();
         model.addAttribute("categoriesList", categoriesList);
 
-        List<RecordEntity> recordsList = recordService.getRecordsListByAccountId(defaultAccount.getId());
+        List<RecordEntity> recordsList = recordService.getRecordsListByAccountId(defaultAccount.getId(), 20); // TODO - replace row limit with parameter
         model.addAttribute("recordsList", recordsList);
+
+        long[] summaryAmounts = recordService.calculateAmounts(defaultAccount.getId()); // TODO - take account id from request
+        model.addAttribute("summaryAmounts", summaryAmounts);
 
         RecordEntity record = new RecordEntity();
         model.addAttribute("recordForm", record);
@@ -68,6 +71,7 @@ public class SummaryPageController {
     @RequestMapping(method = RequestMethod.POST, value = "/record/add")
     public String addNewRecordFromSummaryPage(@ModelAttribute("recordForm") RecordEntity recordEntity) {
 
+        recordEntity.setTimestamp(System.currentTimeMillis());
         recordService.createNewRecord(recordEntity);
         return "redirect:/summary";
 

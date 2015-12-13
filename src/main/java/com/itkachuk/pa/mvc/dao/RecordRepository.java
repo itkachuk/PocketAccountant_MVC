@@ -1,6 +1,8 @@
 package com.itkachuk.pa.mvc.dao;
 
 import com.itkachuk.pa.mvc.model.RecordEntity;
+import com.itkachuk.pa.mvc.utils.DateUtils;
+import com.itkachuk.pa.mvc.utils.TimeRange;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +23,11 @@ public class RecordRepository {
         return entityManager.createQuery("from RecordEntity").getResultList();
     }
 
-    public List<RecordEntity> getRecordsListByAccountId(int accountId) {
-        return entityManager.createQuery("from RecordEntity R where R.account.id = " + accountId).getResultList();
+    public List<RecordEntity> getRecordsListByAccountId(int accountId, int rowLimit) {
+        return entityManager.createQuery(
+                "from RecordEntity R " +
+                        "where R.account.id = " + accountId +
+                        "order by R.timestamp desc").setMaxResults(rowLimit).getResultList();
     }
 
     public RecordEntity getRecordById(int id) {
@@ -41,5 +46,20 @@ public class RecordRepository {
         entityManager.remove(recordEntity);
     }
 
+    // Calculation methods
+    public Double getSumOfRecords(int accountFilter, boolean isExpense, TimeRange timeRange)  {
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("select sum(R.amount) from RecordEntity R where R.isExpense = ");
+        if (isExpense) queryBuilder.append("1");
+        else queryBuilder.append("0");
+        if (accountFilter != -1)
+            queryBuilder.append(" and R.account.id = ").append(accountFilter);
+        //queryBuilder.append(" and R.isPlanned = 0");
+        if (timeRange != null && ((timeRange.getStartTime() > DateUtils.DEFAULT_START_DATE) || (timeRange.getEndTime() < DateUtils.DEFAULT_END_DATE)))
+            queryBuilder.append(" and R.timestamp >= ").append(timeRange.getStartTime()).append(" and R.timestamp < ").append(timeRange.getEndTime());
 
+        Double result = (Double) entityManager.createQuery(queryBuilder.toString()).getSingleResult();
+        return result != null ? result : 0;
+        //Log.d(TAG, "getSumOfRecords query = " + queryBuilder.toString());
+    }
 }

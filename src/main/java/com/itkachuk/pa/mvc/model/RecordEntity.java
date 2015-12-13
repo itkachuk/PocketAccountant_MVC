@@ -13,7 +13,7 @@ public class RecordEntity {
     private CategoryEntity category;
     private String date;
     private Double amount;
-    private Integer timestamp;
+    private Long timestamp;
     private Integer isExpense;
     private Integer isPlanned;
     private Integer isRegular;
@@ -71,11 +71,11 @@ public class RecordEntity {
 
     @Basic
     @Column(name = "timestamp")
-    public Integer getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

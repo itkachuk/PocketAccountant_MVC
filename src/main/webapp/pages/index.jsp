@@ -99,13 +99,13 @@
                         </tr>
                         <tr>
                             <td>Income</td>
-                            <td>35434</td>
-                            <td>25654</td>
+                            <td>${summaryAmounts[3]}</td>
+                            <td>${summaryAmounts[1]}</td>
                         </tr>
                         <tr>
                             <td>Expense</td>
-                            <td>45260</td>
-                            <td>54656</td>
+                            <td>${summaryAmounts[2]}</td>
+                            <td>${summaryAmounts[0]}</td>
                         </tr>
                     </table>
 
@@ -120,18 +120,18 @@
                         </tr>
                         <tr>
                             <td>Month</td>
-                            <td>35434</td>
-                            <td>25654</td>
+                            <td>${summaryAmounts[5]}</td>
+                            <td>${summaryAmounts[4]}</td>
                         </tr>
                         <tr>
                             <td>Quarter</td>
-                            <td>45260</td>
-                            <td>54656</td>
+                            <td>${summaryAmounts[7]}</td>
+                            <td>${summaryAmounts[6]}</td>
                         </tr>
                         <tr>
                             <td>Year</td>
-                            <td>145260</td>
-                            <td>254656</td>
+                            <td>${summaryAmounts[9]}</td>
+                            <td>${summaryAmounts[8]}</td>
                         </tr>
                     </table>
                 </div>
