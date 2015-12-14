@@ -38,7 +38,7 @@ ul {
 /*}*/
 
 #recordItem {
-    border-bottom: solid #bbbbbb 1px;
+    /*border-bottom: solid #bbbbbb 1px;*/
 }
 
 #recordItem .firstRow {
@@ -58,7 +58,7 @@ ul {
 
 
 #accountItem {
-    border-bottom: solid #bbbbbb 1px;
+    /*border-bottom: solid #bbbbbb 1px;*/
 }
 
 #accountItem .firstRow {

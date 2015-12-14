@@ -34,12 +34,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Summary page</a></li>
+                    <li class="active"><a href="/accountant/summary#">Summary page</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Consolidated</a></li>
-                            <li><a href="#">Charts</a></li>
+                            <li><a href="/accountant/reports/consolidated#">Consolidated</a></li>
+                            <li><a href="/accountant/reports/charts#">Charts</a></li>
                             <li><a href="#">Something else here</a></li>
                         </ul>
                     </li>
@@ -68,10 +68,10 @@
                     <div class="columnHeader">
                         <h2>Accounts</h2>
                     </div>
-                    <ul>
+                    <div class="list-group">
                         <c:forEach var="account" items="${accountsList}">
-                            <li>
-                                <div id="accountItem">
+                            <a class="list-group-item" id="accountItem" href="#?accountId=${account.id}">
+                                <%--<div >--%>
                                     <div class="row firstRow">
                                         <div id="accountNameLabel">${account.name}</div>
                                         <div id="accountCurrencyLabel">${account.currency}</div>
@@ -79,10 +79,10 @@
                                     <div class="row secondRow">
                                         <div id="accountDescriptionLabel">${account.description}</div>
                                     </div>
-                                </div>
-                            </li>
+                                <%--</div>--%>
+                            </a>
                         </c:forEach>
-                    </ul>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="columnHeader">
@@ -141,9 +141,9 @@
                 <div class="columnHeader">
                     <h2>Records history</h2>
                 </div>
-                <ul>
+                <div class="list-group">
                     <c:forEach var="record" items="${recordsList}">
-                        <li>
+                        <a class="list-group-item" href="#?recordId=${record.id}">
                             <div id="recordItem">
                                 <div class="row firstRow">
                                     <div id="dateRecordLabel">${record.date}</div>
@@ -156,9 +156,9 @@
                                     <div id="descriptionRecordLabel">${record.description}</div>
                                 </div>
                             </div>
-                        </li>
+                        </a>
                     </c:forEach>
-                </ul>
+                </div>
             </div>
 
             <div class="col-xs-12 col-sm-4" id="side-bar-right">
