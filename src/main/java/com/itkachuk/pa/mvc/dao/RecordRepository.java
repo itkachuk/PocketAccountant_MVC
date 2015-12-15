@@ -24,10 +24,11 @@ public class RecordRepository {
     }
 
     public List<RecordEntity> getRecordsListByAccountId(int accountId, int rowLimit) {
-        return entityManager.createQuery(
-                "from RecordEntity R " +
-                        "where R.account.id = " + accountId +
-                        "order by R.timestamp desc").setMaxResults(rowLimit).getResultList();
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("from RecordEntity R ");
+        if (accountId > 0) queryBuilder.append("where R.account.id = ").append(accountId);
+        queryBuilder.append("order by R.timestamp desc");
+        return entityManager.createQuery(queryBuilder.toString()).setMaxResults(rowLimit).getResultList();
     }
 
     public RecordEntity getRecordById(int id) {
@@ -48,13 +49,14 @@ public class RecordRepository {
 
     // Calculation methods
     public Double getSumOfRecords(int accountFilter, boolean isExpense, TimeRange timeRange)  {
+        if (accountFilter <= 0) return (double) 0; // sum of records can be calculated per single account
+
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("select sum(R.amount) from RecordEntity R where R.isExpense = ");
         if (isExpense) queryBuilder.append("1");
         else queryBuilder.append("0");
-        if (accountFilter != -1)
+        //if (accountFilter != -1)
             queryBuilder.append(" and R.account.id = ").append(accountFilter);
-        //queryBuilder.append(" and R.isPlanned = 0");
         if (timeRange != null && ((timeRange.getStartTime() > DateUtils.DEFAULT_START_DATE) || (timeRange.getEndTime() < DateUtils.DEFAULT_END_DATE)))
             queryBuilder.append(" and R.timestamp >= ").append(timeRange.getStartTime()).append(" and R.timestamp < ").append(timeRange.getEndTime());
 

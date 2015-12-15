@@ -19,6 +19,12 @@
     <title>Pocket Accountant</title>
 </head>
 <body>
+    <spring:url value="/summary/account/" var="summaryBaseUrl" />
+    <spring:url value="/summary/record/add" var="recordAddUrl" />
+    <spring:url value="/summary/record/update/" var="recordUpdateUrl" />
+    <c:set var="accountId" scope="request" value='${accountId}'/>
+    <c:set var="recordId" scope="request" value='${recordId}'/>
+
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -29,17 +35,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Pocket Accountant</a>
+                <a class="navbar-brand" href="${summaryBaseUrl}-1">Pocket Accountant</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/accountant/summary#">Summary page</a></li>
+                    <li class="active"><a href="${summaryBaseUrl}-1">Summary page</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/accountant/reports/consolidated#">Consolidated</a></li>
-                            <li><a href="/accountant/reports/charts#">Charts</a></li>
+                            <li><a href="/accountant/reports/consolidated">Consolidated</a></li>
+                            <li><a href="/accountant/reports/charts">Charts</a></li>
                             <li><a href="#">Something else here</a></li>
                         </ul>
                     </li>
@@ -70,7 +76,7 @@
                     </div>
                     <div class="list-group">
                         <c:forEach var="account" items="${accountsList}">
-                            <a class="list-group-item" id="accountItem" href="#?accountId=${account.id}">
+                            <a class="list-group-item ${account.id eq accountId ? 'active' : ''}" id="accountItem" href="${summaryBaseUrl}${account.id}">
                                 <%--<div >--%>
                                     <div class="row firstRow">
                                         <div id="accountNameLabel">${account.name}</div>
@@ -143,7 +149,7 @@
                 </div>
                 <div class="list-group">
                     <c:forEach var="record" items="${recordsList}">
-                        <a class="list-group-item" href="#?recordId=${record.id}">
+                        <a class="list-group-item" href="${recordUpdateUrl}${record.id}">
                             <div id="recordItem">
                                 <div class="row firstRow">
                                     <div id="dateRecordLabel">${record.date}</div>
@@ -178,9 +184,7 @@
                     </div>
                 </div>
                 <div id="addNewRecordForm" align="left" style="display: none;">
-                    <spring:url value="/summary/record/add" var="recordAddUrl" />
-                    <spring:url value="/summary/record/update/" var="recordUpdateUrl" />
-                    <form:form method="post" role="form" modelAttribute="recordForm" action="${empty id ? recordAddUrl : recordUpdateUrl}">
+                    <form:form method="post" role="form" modelAttribute="recordForm" action="${empty recordId ? recordAddUrl : recordUpdateUrl}">
                         <div class="form-group">
                             <label for="isExpense">Record type:</label>
                             <form:select path="isExpense" id="isExpense" class="form-control">

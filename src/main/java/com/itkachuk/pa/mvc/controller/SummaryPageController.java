@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,10 +42,15 @@ public class SummaryPageController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllSummaryPageData(Model model) {
+    public String getAllSummaryPageData() {
+        return "redirect:/summary/account/-1"; // redirect to default summary page (no account selected)
+    }
 
-        AccountEntity defaultAccount = accountService.getDefaultAccount();
-        model.addAttribute("defaultAccount", defaultAccount);
+    @RequestMapping(method = RequestMethod.GET, value = "/account/{accountId}")
+    public String getAllSummaryPageData(@PathVariable("accountId") int accountId, Model model) {
+
+//        AccountEntity defaultAccount = accountService.getDefaultAccount();
+//        model.addAttribute("defaultAccount", defaultAccount);
 
         List<AccountEntity> accountsList = accountService.getAccountsList();
         model.addAttribute("accountsList", accountsList);
@@ -56,10 +58,10 @@ public class SummaryPageController {
         List<CategoryEntity> categoriesList = categoryService.getCategoriesList();
         model.addAttribute("categoriesList", categoriesList);
 
-        List<RecordEntity> recordsList = recordService.getRecordsListByAccountId(defaultAccount.getId(), 20); // TODO - replace row limit with parameter
+        List<RecordEntity> recordsList = recordService.getRecordsListByAccountId(accountId, 20); // TODO - replace row limit with parameter
         model.addAttribute("recordsList", recordsList);
 
-        long[] summaryAmounts = recordService.calculateAmounts(defaultAccount.getId()); // TODO - take account id from request
+        long[] summaryAmounts = recordService.calculateAmounts(accountId);
         model.addAttribute("summaryAmounts", summaryAmounts);
 
         RecordEntity record = new RecordEntity();
