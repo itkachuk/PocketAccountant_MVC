@@ -78,11 +78,11 @@
                         <c:forEach var="account" items="${accountsList}">
                             <a class="list-group-item ${account.id eq accountId ? 'active' : ''}" id="accountItem" href="${summaryBaseUrl}${account.id}">
                                 <%--<div >--%>
-                                    <div class="row firstRow">
+                                    <div class="row firstRow mainMessageText">
                                         <div id="accountNameLabel">${account.name}</div>
                                         <div id="accountCurrencyLabel">${account.currency}</div>
                                     </div>
-                                    <div class="row secondRow">
+                                    <div class="row secondRow descriptionText">
                                         <div id="accountDescriptionLabel">${account.description}</div>
                                     </div>
                                 <%--</div>--%>
@@ -149,16 +149,16 @@
                 </div>
                 <div class="list-group">
                     <c:forEach var="record" items="${recordsList}">
-                        <a class="list-group-item" href="${recordUpdateUrl}${record.id}">
+                        <a class="list-group-item list-group-item-${record.isExpense eq 0 ? 'success' : 'danger'}" href="${recordUpdateUrl}${record.id}">
                             <div id="recordItem">
-                                <div class="row firstRow">
+                                <div class="row firstRow dateText">
                                     <div id="dateRecordLabel">${record.date}</div>
                                 </div>
-                                <div class="row secondRow">
-                                    <div id="categoryRecordLabel">${record.category.name}</div>
-                                    <div id="amountRecordLabel">${record.amount}</div>
+                                <div class="row secondRow mainMessageText">
+                                    <div id="categoryRecordLabel" class="mainMessageColor">${record.category.name}</div>
+                                    <div id="amountRecordLabel">${record.isExpense eq 0 ? '' : '-'}${record.amount}</div>
                                 </div>
-                                <div class="row thirdRow">
+                                <div class="row thirdRow descriptionText descriptionColor">
                                     <div id="descriptionRecordLabel">${record.description}</div>
                                 </div>
                             </div>

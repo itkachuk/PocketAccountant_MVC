@@ -18,6 +18,27 @@ ul {
     align-content: flex-start;
 }
 
+.dateText {
+    font-size: 12px;
+    color: #8a6d3b;
+}
+
+.mainMessageText {
+    font-size: 18px;
+}
+
+.mainMessageColor {
+    color: #080808;
+}
+
+.descriptionText {
+    font-size: 12px;
+    text-align: left;
+}
+
+.descriptionColor {
+    color: #777777;
+}
 
 
 .reportsList {
