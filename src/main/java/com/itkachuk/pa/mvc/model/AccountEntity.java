@@ -1,5 +1,6 @@
 package com.itkachuk.pa.mvc.model;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 
 /**
@@ -8,10 +9,22 @@ import javax.persistence.*;
 @Entity
 @Table(name = "account", schema = "", catalog = "")
 public class AccountEntity {
+    private Integer id;
     private String currency;
     private String description;
     private String name;
-    private Integer id;
+    private UserEntity user;
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     @Basic
     @Column(name = "currency")
@@ -43,15 +56,14 @@ public class AccountEntity {
         this.name = name;
     }
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    public Integer getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @Override
@@ -65,6 +77,7 @@ public class AccountEntity {
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (user != null ? !user.equals(that.user) : that.user != null) return false;
 
         return true;
     }
@@ -75,6 +88,7 @@ public class AccountEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 }
