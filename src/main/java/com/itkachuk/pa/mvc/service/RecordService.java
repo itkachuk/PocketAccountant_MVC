@@ -20,13 +20,13 @@ public class RecordService {
     private RecordRepository recordRepository;
 
     @Transactional
-    public List<RecordEntity> getRecordsList() {
-        return recordRepository.getRecordsList();
+    public List<RecordEntity> getRecordsList(String userName) {
+        return recordRepository.getRecordsList(userName);
     }
 
     @Transactional
-    public List<RecordEntity> getRecordsListByAccountId(int accountId, int rowLimit) {
-        return recordRepository.getRecordsListByAccountId(accountId, rowLimit);
+    public List<RecordEntity> getRecordsListByAccountId(String userName, int accountId, int rowLimit) {
+        return recordRepository.getRecordsListByAccountId(userName, accountId, rowLimit);
     }
 
     @Transactional

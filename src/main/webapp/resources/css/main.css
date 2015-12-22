@@ -113,6 +113,12 @@ ul {
     min-width: 80px;
 }
 
+
+.newAccountButton {
+    width: 40%;
+    margin: 20px 0;
+}
+
 /*#recordsList .loggedUserHeader {*/
     /*display: flex;*/
     /*justify-content: flex-end;*/

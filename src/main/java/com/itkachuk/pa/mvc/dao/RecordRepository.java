@@ -19,15 +19,16 @@ public class RecordRepository {
     @PersistenceContext(name = "PAPersistenceUnit")
     private EntityManager entityManager;
 
-    public List<RecordEntity> getRecordsList() {
-        return entityManager.createQuery("from RecordEntity").getResultList();
+    public List<RecordEntity> getRecordsList(String userName) {
+        return entityManager.createQuery("from RecordEntity R where R.account.user.username = '" + userName + "'").getResultList();
     }
 
-    public List<RecordEntity> getRecordsListByAccountId(int accountId, int rowLimit) {
+    public List<RecordEntity> getRecordsListByAccountId(String userName, int accountId, int rowLimit) {
         StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("from RecordEntity R ");
-        if (accountId > 0) queryBuilder.append("where R.account.id = ").append(accountId);
-        queryBuilder.append("order by R.timestamp desc");
+        queryBuilder.append("from RecordEntity R");
+        queryBuilder.append(" where R.account.user.username = '").append(userName).append("'");
+        if (accountId > 0) queryBuilder.append(" and R.account.id = ").append(accountId);
+        queryBuilder.append(" order by R.timestamp desc");
         return entityManager.createQuery(queryBuilder.toString()).setMaxResults(rowLimit).getResultList();
     }
 

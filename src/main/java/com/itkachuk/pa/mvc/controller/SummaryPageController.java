@@ -1,7 +1,5 @@
 package com.itkachuk.pa.mvc.controller;
 
-import com.itkachuk.pa.mvc.converter.AccountEditor;
-import com.itkachuk.pa.mvc.converter.CategoryEditor;
 import com.itkachuk.pa.mvc.converter.PABindingInitializer;
 import com.itkachuk.pa.mvc.model.AccountEntity;
 import com.itkachuk.pa.mvc.model.CategoryEntity;
@@ -9,6 +7,7 @@ import com.itkachuk.pa.mvc.model.RecordEntity;
 import com.itkachuk.pa.mvc.service.AccountService;
 import com.itkachuk.pa.mvc.service.CategoryService;
 import com.itkachuk.pa.mvc.service.RecordService;
+import com.itkachuk.pa.mvc.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,13 +51,13 @@ public class SummaryPageController {
 //        AccountEntity defaultAccount = accountService.getDefaultAccount();
 //        model.addAttribute("defaultAccount", defaultAccount);
 
-        List<AccountEntity> accountsList = accountService.getAccountsList();
+        List<AccountEntity> accountsList = accountService.getAccountsList(AuthUtils.getLoggedUserName());
         model.addAttribute("accountsList", accountsList);
 
         List<CategoryEntity> categoriesList = categoryService.getCategoriesList();
         model.addAttribute("categoriesList", categoriesList);
 
-        List<RecordEntity> recordsList = recordService.getRecordsListByAccountId(accountId, 20); // TODO - replace row limit with parameter
+        List<RecordEntity> recordsList = recordService.getRecordsListByAccountId(AuthUtils.getLoggedUserName(), accountId, 20); // TODO - replace row limit with parameter
         model.addAttribute("recordsList", recordsList);
 
         long[] summaryAmounts = recordService.calculateAmounts(accountId);

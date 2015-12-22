@@ -2,6 +2,7 @@ package com.itkachuk.pa.mvc.controller;
 
 import com.itkachuk.pa.mvc.model.RecordEntity;
 import com.itkachuk.pa.mvc.service.RecordService;
+import com.itkachuk.pa.mvc.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +24,12 @@ public class RecordController {
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String getRecordsList(Model model) {
 
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName(); //get logged in username
+        String username = AuthUtils.getLoggedUserName();
 
-        List<RecordEntity> recordsList = recordService.getRecordsList();
+        List<RecordEntity> recordsList = recordService.getRecordsList(username);
 
         model.addAttribute("recordsList", recordsList);
-//        model.addAttribute("loggedUser", username);
+        model.addAttribute("loggedUser", username);
         return "index";
     }
 }

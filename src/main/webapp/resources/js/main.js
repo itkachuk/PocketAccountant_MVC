@@ -28,6 +28,7 @@ $(function(){
     });
 });
 
+// Summary page functions
 function newRecordButtonClick(recordType) {
     var addNewRecordForm = $("#addNewRecordForm");
 
@@ -48,4 +49,22 @@ function saveRecordButtonClick() {
 function cancelButtonClick() {
     $("#newRecordButtonsPanel").show();
     $("#addNewRecordForm").hide();
+}
+
+
+// Account admin page functions
+function newAccountButtonClick() {
+    $("#newAccountButtonPanel").hide();
+    $("#accountEditorForm").show();
+}
+
+function saveAccountButtonClick() {
+//    $("#newAccountButtonPanel").show();
+//    $("#accountEditorForm").hide();
+}
+
+function cancelAccountButtonClick(url) {
+//    $("#newAccountButtonPanel").show();
+//    $("#accountEditorForm").hide();
+    window.location.href = url;
 }

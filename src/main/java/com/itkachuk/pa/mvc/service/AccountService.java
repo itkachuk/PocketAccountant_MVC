@@ -24,12 +24,28 @@ public class AccountService {
     }
 
     @Transactional
-    public List<AccountEntity> getAccountsList() {
-        return accountRepository.getAccountsList();
+    public List<AccountEntity> getAccountsList(String username) {
+        return accountRepository.getAccountsList(username);
     }
 
     @Transactional
     public AccountEntity getAccountById(int id) {
         return accountRepository.getAccountById(id);
+    }
+
+    @Transactional
+    public void createNewAccount(AccountEntity accountEntity) {
+        accountRepository.createNewAccount(accountEntity);
+    }
+
+    @Transactional
+    public void updateAccount(AccountEntity accountEntity) {
+        accountRepository.updateAccount(accountEntity);
+    }
+
+    @Transactional
+    public void deleteAccount(int accountId) {
+        AccountEntity accountEntity = accountRepository.getAccountById(accountId);
+        accountRepository.deleteAccount(accountEntity);
     }
 }

@@ -10,10 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class AuthUtils {
 
-    static Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    //static Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
     //get logged in username
     public static String getLoggedUserName() {
-        return auth.getName();
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

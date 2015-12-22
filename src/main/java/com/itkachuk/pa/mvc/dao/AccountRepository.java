@@ -17,16 +17,16 @@ public class AccountRepository {
     @PersistenceContext(name = "PAPersistenceUnit")
     private EntityManager entityManager;
 
-    public List<AccountEntity> getAccountsList() {
-        return entityManager.createQuery("from AccountEntity").getResultList();
+    public List<AccountEntity> getAccountsList(String username) {
+        return entityManager.createQuery("from AccountEntity" + (username != null ? " A where A.user.username = '" + username + "'" : "")).getResultList();
     }
 
     public AccountEntity getAccountById(int id) {
         return entityManager.find(AccountEntity.class, id);
     }
 
-    public AccountEntity getAccountByName(String name) {
-        return (AccountEntity) entityManager.createQuery("from AccountEntity A where A.name = " + name).getSingleResult();
+    public AccountEntity getAccountByName(String accountName, String username) {
+        return (AccountEntity) entityManager.createQuery("from AccountEntity A where A.name = '" + accountName + "'" + (username != null ? " AND A.user.username = '" + username + "'" : "")).getSingleResult();
     }
 
     public void createNewAccount(AccountEntity accountEntity) {

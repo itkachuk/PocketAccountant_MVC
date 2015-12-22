@@ -19,9 +19,17 @@
     <title>Pocket Accountant</title>
 </head>
 <body>
-    <spring:url value="/summary/account/" var="summaryBaseUrl" />
+    <%-- Common URLs for all JSPs --%>
+    <spring:url value="/summary/account" var="summaryBaseUrl" />
+    <spring:url value="/reports/consolidated" var="consolidatedReportBaseUrl" />
+    <spring:url value="/reports/charts" var="chartsReportBaseUrl" />
+    <spring:url value="/admin/account" var="accountBaseUrl" />
+    <spring:url value="/admin/category" var="categoryBaseUrl" />
+    <spring:url value="/logout" var="logoutUrl" />
+
+    <%-- URLs, specific for given JSP --%>
     <spring:url value="/summary/record/add" var="recordAddUrl" />
-    <spring:url value="/summary/record/update/" var="recordUpdateUrl" />
+    <spring:url value="/summary/record/update" var="recordUpdateUrl" />
     <c:set var="accountId" scope="request" value='${accountId}'/>
     <c:set var="recordId" scope="request" value='${recordId}'/>
 
@@ -35,18 +43,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${summaryBaseUrl}-1">Pocket Accountant</a>
+                <a class="navbar-brand" href="${summaryBaseUrl}/-1">Pocket Accountant</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="${summaryBaseUrl}-1">Summary page</a></li>
+                    <li class="active"><a href="${summaryBaseUrl}/-1">Summary page</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/accountant/reports/consolidated">Consolidated</a></li>
-                            <li><a href="/accountant/reports/charts">Charts</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="${consolidatedReportBaseUrl}">Consolidated</a></li>
+                            <li><a href="${chartsReportBaseUrl}">Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="${accountBaseUrl}/-1">Accounts</a></li>
+                            <li><a href="${categoryBaseUrl}">Categories</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -54,7 +68,7 @@
                     <%--<li><a>Currently logged user: <sec:authentication property="name"/></a></li>--%>
                     <%--<li><a><span> | </span></a></li>--%>
                     <%--<li><a id="logout" href="/accountant/logout">Logout</a></li>--%>
-                    <li><a href="/accountant/logout"> Currently logged user: <sec:authentication property="name"/> | Logout</a>
+                    <li><a href="${logoutUrl}"> Currently logged user: <sec:authentication property="name"/> | Logout</a>
                     </li>
                 </ul>
                 <%--<div class="loggedUserHeader">--%>
@@ -74,21 +88,26 @@
                     <div class="columnHeader">
                         <h2>Accounts</h2>
                     </div>
-                    <div class="list-group">
-                        <c:forEach var="account" items="${accountsList}">
-                            <a class="list-group-item ${account.id eq accountId ? 'active' : ''}" id="accountItem" href="${summaryBaseUrl}${account.id}">
-                                <%--<div >--%>
-                                    <div class="row firstRow mainMessageText">
-                                        <div id="accountNameLabel">${account.name}</div>
-                                        <div id="accountCurrencyLabel">${account.currency}</div>
-                                    </div>
-                                    <div class="row secondRow descriptionText">
-                                        <div id="accountDescriptionLabel">${account.description}</div>
-                                    </div>
-                                <%--</div>--%>
-                            </a>
-                        </c:forEach>
-                    </div>
+                    <c:if test="${not empty accountsList}">
+                        <div class="list-group">
+                            <c:forEach var="account" items="${accountsList}">
+                                <a class="list-group-item ${account.id eq accountId ? 'active' : ''}" id="accountItem" href="${summaryBaseUrl}/${account.id}">
+                                    <%--<div >--%>
+                                        <div class="row firstRow mainMessageText">
+                                            <div id="accountNameLabel">${account.name}</div>
+                                            <div id="accountCurrencyLabel">${account.currency}</div>
+                                        </div>
+                                        <div class="row secondRow descriptionText">
+                                            <div id="accountDescriptionLabel">${account.description}</div>
+                                        </div>
+                                    <%--</div>--%>
+                                </a>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                    <c:if test="${empty accountsList}">
+                        <div class="empty-list">Empty list</div>
+                    </c:if>
                 </div>
                 <div class="row">
                     <div class="columnHeader">
@@ -147,24 +166,30 @@
                 <div class="columnHeader">
                     <h2>Records history</h2>
                 </div>
-                <div class="list-group">
-                    <c:forEach var="record" items="${recordsList}">
-                        <a class="list-group-item list-group-item-${record.isExpense eq 0 ? 'success' : 'danger'}" href="${recordUpdateUrl}${record.id}">
-                            <div id="recordItem">
-                                <div class="row firstRow dateText">
-                                    <div id="dateRecordLabel">${record.date}</div>
+
+                <c:if test="${not empty recordsList}">
+                    <div class="list-group">
+                        <c:forEach var="record" items="${recordsList}">
+                            <a class="list-group-item list-group-item-${record.isExpense eq 0 ? 'success' : 'danger'}" href="${recordUpdateUrl}/${record.id}">
+                                <div id="recordItem">
+                                    <div class="row firstRow dateText">
+                                        <div id="dateRecordLabel">${record.date}</div>
+                                    </div>
+                                    <div class="row secondRow mainMessageText">
+                                        <div id="categoryRecordLabel" class="mainMessageColor">${record.category.name}</div>
+                                        <div id="amountRecordLabel">${record.isExpense eq 0 ? '' : '-'}${record.amount}</div>
+                                    </div>
+                                    <div class="row thirdRow descriptionText descriptionColor">
+                                        <div id="descriptionRecordLabel">${record.description}</div>
+                                    </div>
                                 </div>
-                                <div class="row secondRow mainMessageText">
-                                    <div id="categoryRecordLabel" class="mainMessageColor">${record.category.name}</div>
-                                    <div id="amountRecordLabel">${record.isExpense eq 0 ? '' : '-'}${record.amount}</div>
-                                </div>
-                                <div class="row thirdRow descriptionText descriptionColor">
-                                    <div id="descriptionRecordLabel">${record.description}</div>
-                                </div>
-                            </div>
-                        </a>
-                    </c:forEach>
-                </div>
+                            </a>
+                        </c:forEach>
+                    </div>
+                </c:if>
+                <c:if test="${empty recordsList}">
+                    <div class="empty-list">Empty list</div>
+                </c:if>
             </div>
 
             <div class="col-xs-12 col-sm-4" id="side-bar-right">
@@ -184,7 +209,8 @@
                     </div>
                 </div>
                 <div id="addNewRecordForm" align="left" style="display: none;">
-                    <form:form method="post" role="form" modelAttribute="recordForm" action="${empty recordId ? recordAddUrl : recordUpdateUrl}">
+                    <c:set var="recordUpdateUrlWithId" value="${recordUpdateUrl}/${recordId}" />
+                    <form:form method="post" role="form" modelAttribute="recordForm" action="${empty recordId ? recordAddUrl : recordUpdateUrlWithId}">
                         <div class="form-group">
                             <label for="isExpense">Record type:</label>
                             <form:select path="isExpense" id="isExpense" class="form-control">
