@@ -54,32 +54,25 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="${consolidatedReportBaseUrl}">Consolidated</a></li>
-                            <li><a href="${chartsReportBaseUrl}">Charts</a></li>
+                            <li><a href="${chartsReportBaseUrl}">Charts (not ready!)</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="${accountBaseUrl}/-1">Accounts</a></li>
-                            <li><a href="${categoryBaseUrl}">Categories</a></li>
+                            <li><a href="${categoryBaseUrl}">Categories (not ready!)</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <%--<li><a>Currently logged user: <sec:authentication property="name"/></a></li>--%>
-                    <%--<li><a><span> | </span></a></li>--%>
-                    <%--<li><a id="logout" href="/accountant/logout">Logout</a></li>--%>
-                    <li><a href="${logoutUrl}"> Currently logged user: <sec:authentication property="name"/> | Logout</a>
-                    </li>
+                    <li><a class="inactiveLink"><span>Currently logged user: <sec:authentication property="name"/></span></a></li>
+                    <li><a class="inactiveLink separator">|</a></li>
+                    <li><a id="logout" href="${logoutUrl}">Logout</a></li>
+
                 </ul>
-                <%--<div class="loggedUserHeader">--%>
-                <%--<h4>Currently logged user: <sec:authentication property="name"/>--%>
-                <%--<span> | </span>--%>
-                <%--<a id="logout" href="/accountant/logout">Logout</a>--%>
-                <%--</h4>--%>
-                <%--</div>--%>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </nav>
 
 
@@ -94,7 +87,6 @@
                         <div class="list-group">
                             <c:forEach var="account" items="${accountsList}">
                                 <a class="list-group-item ${account.id eq accountId ? 'active' : ''}" id="accountItem" href="${accountBaseUrl}/${account.id}">
-                                        <%--<div >--%>
                                     <div class="row firstRow mainMessageText">
                                         <div id="accountNameLabel">${account.name}</div>
                                         <div id="accountCurrencyLabel">${account.currency}</div>
@@ -102,21 +94,14 @@
                                     <div class="row secondRow descriptionText">
                                         <div id="accountDescriptionLabel">${account.description}</div>
                                     </div>
-                                        <%--</div>--%>
                                 </a>
                             </c:forEach>
                         </div>
                     </c:if>
                     <c:if test="${empty accountsList}">
-                        <div class="empty-list">Empty list</div>
+                        <div class="no-data">No data available</div>
                     </c:if>
                 </div>
-
-                <%--<div class="row" align="right">--%>
-                    <%--<button class="btn btn-success newRecordButton" onclick="newAccountButtonClick()">--%>
-                        <%--New account--%>
-                    <%--</button>--%>
-                <%--</div>--%>
             </div>
 
             <div class="col-xs-12 col-sm-6">

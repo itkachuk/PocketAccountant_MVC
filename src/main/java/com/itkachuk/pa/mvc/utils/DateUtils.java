@@ -1,9 +1,18 @@
 package com.itkachuk.pa.mvc.utils;
 
+import com.itkachuk.pa.mvc.model.RecordEntity;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class DateUtils {
 	private static final String TAG = "PocketAccountant";
+
+    public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public static final long DEFAULT_START_DATE = 0L;
 //	public static final long DEFAULT_END_DATE = 4102444800000L; // 1 Jan 2100
@@ -216,5 +225,22 @@ public class DateUtils {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+    }
+
+    public static void formatDates(List<RecordEntity> recordsList) {
+        for (RecordEntity record : recordsList) {
+
+            Date date = null;
+            try {
+                date = dateFormat.parse(record.getDate());
+                record.setDate(dateFormat.format(date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Date parseDateString(String dateString) throws ParseException {
+        return dateFormat.parse(dateString);
     }
 }

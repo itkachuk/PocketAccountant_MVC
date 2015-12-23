@@ -8,12 +8,14 @@ import com.itkachuk.pa.mvc.service.AccountService;
 import com.itkachuk.pa.mvc.service.CategoryService;
 import com.itkachuk.pa.mvc.service.RecordService;
 import com.itkachuk.pa.mvc.utils.AuthUtils;
+import com.itkachuk.pa.mvc.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -58,6 +60,7 @@ public class SummaryPageController {
         model.addAttribute("categoriesList", categoriesList);
 
         List<RecordEntity> recordsList = recordService.getRecordsListByAccountId(AuthUtils.getLoggedUserName(), accountId, 20); // TODO - replace row limit with parameter
+        DateUtils.formatDates(recordsList);
         model.addAttribute("recordsList", recordsList);
 
         long[] summaryAmounts = recordService.calculateAmounts(accountId);
@@ -70,9 +73,9 @@ public class SummaryPageController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/record/add")
-    public String addNewRecordFromSummaryPage(@ModelAttribute("recordForm") RecordEntity recordEntity) {
+    public String addNewRecordFromSummaryPage(@ModelAttribute("recordForm") RecordEntity recordEntity) throws ParseException {
 
-        recordEntity.setTimestamp(System.currentTimeMillis());
+        recordEntity.setTimestamp(DateUtils.parseDateString(recordEntity.getDate()).getTime());
         recordService.createNewRecord(recordEntity);
         return "redirect:/summary";
 

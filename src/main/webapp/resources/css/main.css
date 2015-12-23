@@ -40,31 +40,28 @@ ul {
     color: #777777;
 }
 
-
-.reportsList {
-    display: flex;
-    flex-direction: column;
+.no-data {
+    color: #bbbbbb;
 }
 
-.stacktrace {
-    padding-left: 40px;
+/* nav-bar styles - override bootstrap */
+.navbar-nav > li > a:hover.inactiveLink,
+.navbar-nav > li > a:focus.inactiveLink {
     color: #777;
+    background-color: transparent;
+    cursor: default;
+}
+
+.navbar-nav > li > a.separator {
+    padding: 14px 0;
 }
 
 
 /* index.jsp */
 
-/*#recordsList ul {*/
-    /*padding-left: 10px;*/
-/*}*/
-
-#recordItem {
-    /*border-bottom: solid #bbbbbb 1px;*/
-}
-
 #recordItem .firstRow {
      display: flex;
-     align-content: flex-start;
+    justify-content: space-between;
 }
 
 #recordItem .secondRow {
@@ -78,9 +75,7 @@ ul {
 }
 
 
-#accountItem {
-    /*border-bottom: solid #bbbbbb 1px;*/
-}
+
 
 #accountItem .firstRow {
     display: flex;
@@ -117,29 +112,4 @@ ul {
 .newAccountButton {
     width: 40%;
     margin: 20px 0;
-}
-
-/*#recordsList .loggedUserHeader {*/
-    /*display: flex;*/
-    /*justify-content: flex-end;*/
-    /*color: #bbbbbb;*/
-/*}*/
-
-/*#recordsList .booksListHeader {*/
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-/*}*/
-
-/*#recordsList table .btn {*/
-    /*min-width: 80px;*/
-/*}*/
-
-/*#recordsList .booksListHeader .btn {*/
-    /*margin-top: 20px;*/
-    /*margin-bottom: 10px;*/
-/*}*/
-
-/* addBook.jsp */
-#addNewBookForm {
-    width: 500px;
 }
